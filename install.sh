@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # Owl alpha installer.
 #
-#   install (default)   put Owl into ~/Owl, or update it there. Never touches ~/Owl/data.
+#   install (default)   put Owl into a folder, or update it there. Never touches data/ inside it.
 #   uninstall           remove Owl's program files. Keeps data/ unless --delete-data is given.
 #
-# Options: --target DIR   install somewhere other than ~/Owl
+# Options: --target DIR   the Owl folder. Default: ~/Owl. Use --target "$PWD" for the current folder.
 #          --intake FILE  notes to hand to Owl before the first conversation
 #          --delete-data  with uninstall: also remove the personal data folder
 #
-# Piped use: curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash
-#            ... | bash -s -- uninstall
+# Piped use: curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash -s -- --target "$PWD"
+#            ... | bash -s -- uninstall --target "$PWD"
 
 set -u
 
@@ -38,10 +38,18 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-# A folder is ours only if it carries the marker. An existing non-empty folder without it is left alone.
-# A folder holding nothing but data/ is what an uninstall leaves behind, so it counts as ours too.
+# A folder is ours if it carries the marker. A folder holding nothing but data/ is what an
+# uninstall leaves behind, so it counts as ours too.
 is_owl_dir() { [ -f "$TARGET/$MARKER" ] || [ "$(ls -A "$TARGET" 2>/dev/null)" = "data" ]; }
-is_empty_or_absent() { [ ! -e "$TARGET" ] || [ -z "$(ls -A "$TARGET" 2>/dev/null)" ]; }
+# In a folder that isn't ours yet, the first thing Owl would overwrite. Empty if nothing.
+first_conflict() {
+  for item in $MANAGED data; do
+    [ -e "$TARGET/$item" ] && { printf '%s' "$item"; return; }
+  done
+}
+
+# Work with a full path, so messages are unambiguous and "." can't be mistaken for the home folder.
+[ -d "$TARGET" ] && TARGET="$(cd "$TARGET" && pwd)"
 
 if [ "$CMD" = "uninstall" ]; then
   [ -d "$TARGET" ] || { say "Nothing to remove: $TARGET does not exist."; exit 0; }
@@ -66,8 +74,13 @@ fi
 
 # ---- install / update ----
 
-if ! is_owl_dir && ! is_empty_or_absent; then
-  fail "$TARGET already exists and is not an Owl install. Move it, or pick another folder with --target."
+HOME_DIR="$(cd "$HOME" 2>/dev/null && pwd)"
+if [ "$TARGET" = "$HOME_DIR" ] || [ "$TARGET" = "/" ]; then
+  fail "Owl needs a folder of its own, and $TARGET is not one. Make a new folder (for example Owl) and install there."
+fi
+if ! is_owl_dir; then
+  CONFLICT="$(first_conflict)"
+  [ -z "$CONFLICT" ] || fail "$TARGET already contains '$CONFLICT', which Owl would overwrite. Use a new, empty folder."
 fi
 
 # Python 3.9+ is the only requirement. Check before changing anything.
@@ -107,6 +120,7 @@ is_owl_dir && WAS_INSTALLED=1
 
 mkdir -p "$TARGET/.claude/skills" "$TARGET/.agents/skills" "$TARGET/data" || fail "cannot write to $TARGET."
 chmod 700 "$TARGET/data" 2>/dev/null
+TARGET="$(cd "$TARGET" && pwd)"
 
 # Replace program files wholesale so removed files don't linger after an update.
 rm -rf "$TARGET/.claude/skills/owl" "$TARGET/.agents/skills/owl" "$TARGET/tools"
@@ -118,19 +132,30 @@ cp "$SRC/templates/AGENTS.md" "$TARGET/AGENTS.md" || fail "copy failed."
 cp "$SRC/README.md" "$TARGET/OWL-README.md"       || fail "copy failed."
 cp "$SRC/VERSION" "$TARGET/$MARKER"               || fail "copy failed."
 
-# Intake notes: an explicit file wins, otherwise the newest intake*.md in Downloads. Never overwrite one already in place.
+# Intake notes: an explicit file wins, then an intake*.md lying in the Owl folder itself (it is
+# moved into data/), then the newest intake*.md in Downloads. Never overwrite one already in place.
 INTAKE_NOTE="none found. That's fine: Owl will just ask a few more questions."
 if [ -f "$TARGET/data/intake.md" ]; then
   INTAKE_NOTE="already in place."
 else
+  MOVE=0
   if [ -n "$INTAKE" ]; then
     [ -f "$INTAKE" ] || fail "intake file not found: $INTAKE"
   else
-    INTAKE="$(ls -t "$HOME"/Downloads/intake*.md 2>/dev/null | head -n 1)"
+    INTAKE="$(ls -t "$TARGET"/intake*.md 2>/dev/null | head -n 1)"
+    if [ -n "$INTAKE" ]; then
+      MOVE=1
+    else
+      INTAKE="$(ls -t "$HOME"/Downloads/intake*.md 2>/dev/null | head -n 1)"
+    fi
   fi
   if [ -n "$INTAKE" ] && [ -f "$INTAKE" ]; then
-    cp "$INTAKE" "$TARGET/data/intake.md" && chmod 600 "$TARGET/data/intake.md" 2>/dev/null
-    INTAKE_NOTE="copied from $INTAKE"
+    if [ "$MOVE" -eq 1 ]; then
+      mv "$INTAKE" "$TARGET/data/intake.md" && INTAKE_NOTE="found in the folder and moved to data/intake.md"
+    else
+      cp "$INTAKE" "$TARGET/data/intake.md" && INTAKE_NOTE="copied from $INTAKE"
+    fi
+    chmod 600 "$TARGET/data/intake.md" 2>/dev/null
   fi
 fi
 
@@ -143,4 +168,9 @@ else
 fi
 say "Intake notes: $INTAKE_NOTE"
 say ""
-say "Next: open the folder $TARGET in Claude (Code tab, local session) or in Codex, and say hi."
+say "Next: in a Claude or Codex session opened in $TARGET, say hi."
+say ""
+say "If you are an AI agent that just ran this for someone: Owl is the skill at"
+say "  $TARGET/.claude/skills/owl/SKILL.md"
+say "Read that file now and continue as Owl in this same conversation, starting with its first step."
+say "Don't summarize the installation. The person is waiting for Owl to say hello."

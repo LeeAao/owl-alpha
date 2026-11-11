@@ -6,32 +6,40 @@ This is an early alpha. Expect rough edges.
 
 ## Install
 
-You need a Mac or Linux machine, and Claude (desktop app or Claude Code) or Codex.
+You need a Mac or Linux machine, and Claude Code (the Code tab of the Claude app works) or Codex.
+
+1. Make a new folder anywhere and name it as you like, for example `Owl`.
+2. If someone gave you a notes file for Owl (`intake.md`), put it into that folder.
+3. Open a Claude Code or Codex session in that folder and send it this:
+
+   > Install Owl in this folder: https://github.com/LeeAao/owl-alpha
+
+That's the whole install. Everything goes into that one folder. It installs no packages and changes nothing else on your computer. When it's done, Owl says hello in the same chat.
+
+Prefer the terminal? This does the same thing into `~/Owl`:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash
 ```
 
-That's the whole install. It creates one folder, `~/Owl`, and puts everything there. It installs no packages and changes nothing else on your computer.
-
-Then open the folder `~/Owl` in Claude (Code tab, local session) or in Codex and say hi.
-
 ## Update
 
-Run the install command again. It replaces Owl's own files and never touches `~/Owl/data`, where your goals and check-ins live.
+Ask Owl to update itself, or run the install command again in the same folder. It replaces Owl's own files and never touches `data/`, where your goals and check-ins live.
 
 ## Remove
 
+Delete the folder. Or, to remove Owl but keep your data:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash -s -- uninstall
+curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash -s -- uninstall --target "$PWD"
 ```
 
-This removes Owl but keeps `~/Owl/data`. Add `--delete-data` at the end to remove your data too. Deleting the `~/Owl` folder by hand does the same thing.
+Add `--delete-data` at the end to remove your data too.
 
 ## What's in the folder
 
 ```
-~/Owl/
+Owl/
 ├── CLAUDE.md, AGENTS.md     tell the agent this folder is Owl
 ├── .claude/skills/owl/      Owl's method, for Claude
 ├── .agents/skills/owl/      the same, for Codex
@@ -43,8 +51,18 @@ Owl needs Python 3.9 or newer. Macs with Apple's command line tools already have
 
 ## Note for AI agents
 
-If a person asks you to install Owl, run the one-line install command above and show them its output. Do not clone this repository and set it up by hand, do not install Python or any package manager, and do not run tests or rehearsals. If the installer stops with a message, show the person that message and stop.
+If a person asks you to install Owl, run this one command from the folder your session is in, and nothing else:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash -s -- --target "$PWD"
+```
+
+- Do not clone this repository or set it up by hand. Do not install Python or any package manager. Do not run tests or rehearsals.
+- If the installer stops with a message, show the person that message in plain words and stop.
+- If your session is in the person's home folder or in a folder with other work in it, ask them to make a new folder and open the session there. The installer refuses the home folder, and any folder where it would overwrite something.
+- To update, run the same command again.
+- When the installer succeeds, its last lines tell you where the Owl skill is. Read that file and continue as Owl in the same conversation. The person should see Owl's hello next, not an installation report.
 
 ## Privacy
 
-Everything you tell Owl is stored in `~/Owl/data` on your computer. Owl sends nothing anywhere. Your conversations go through Claude or Codex like any other chat with them.
+Everything you tell Owl is stored in the `data` folder inside your Owl folder on your computer. Owl sends nothing anywhere. Your conversations go through Claude or Codex like any other chat with them.
