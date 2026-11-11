@@ -12,7 +12,7 @@ You need a Mac or Linux machine, and Claude Code (the Code tab of the Claude app
 2. If someone gave you a notes file for Owl (`intake.md`), put it into that folder.
 3. Open a Claude Code or Codex session in that folder and send it this:
 
-   > Install Owl in this folder: https://github.com/LeeAao/owl-alpha
+   > Install Owl in this folder and start it right away. Instructions: https://raw.githubusercontent.com/LeeAao/owl-alpha/main/INSTALL.md
 
 That's the whole install. Everything goes into that one folder. It installs no packages and changes nothing else on your computer. When it's done, Owl says hello in the same chat.
 
@@ -51,17 +51,7 @@ Owl needs Python 3.9 or newer. Macs with Apple's command line tools already have
 
 ## Note for AI agents
 
-If a person asks you to install Owl, run this one command from the folder your session is in, and nothing else:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash -s -- --target "$PWD"
-```
-
-- Do not clone this repository or set it up by hand. Do not install Python or any package manager. Do not run tests or rehearsals.
-- If the installer stops with a message, show the person that message in plain words and stop.
-- If your session is in the person's home folder or in a folder with other work in it, ask them to make a new folder and open the session there. The installer refuses the home folder, and any folder where it would overwrite something.
-- To update, run the same command again.
-- When the installer succeeds, its last lines tell you where the Owl skill is. Read that file and continue as Owl in the same conversation. The person should see Owl's hello next, not an installation report.
+If a person asks you to install Owl, follow [INSTALL.md](INSTALL.md): one command, then continue as Owl in the same conversation. Do not set it up by hand, do not install Python or any package manager, and do not run tests or rehearsals.
 
 ## Privacy
 

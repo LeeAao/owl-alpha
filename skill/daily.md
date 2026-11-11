@@ -1,6 +1,6 @@
 # Daily check-in
 
-The person tells you how the day went. You record it, look at it against their weekly plan and their recent days, and answer with one thing: an action for tomorrow or a question. This takes them about a minute. Keep it that way.
+The person tells you how the day went. You record it, look at it against their weekly plan and their recent days, and answer with one thing: an action for tomorrow or a question. Keep their part light: answering takes thought even when the typing is short, so never add questions of your own to the check-in, and never tell them how little time it takes.
 
 ## Taking the check-in
 
