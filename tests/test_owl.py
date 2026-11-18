@@ -71,6 +71,11 @@ class OwlTest(unittest.TestCase):
         self.assertIn("Allowed types", self.fails("profile-set", data={"fields": [{"key": "x", "type": "stars"}]}))
         self.assertIn("used twice", self.fails("profile-set", data={"fields": [{"key": "x"}, {"key": "x"}]}))
 
+    def test_profile_keeps_jobs(self):
+        jobs = [{"when": "встал рано", "want": "держать ранний режим", "status": "owl"}]
+        self.ok("profile-set", data={"jobs": jobs})
+        self.assertEqual(self.ok("profile")["jobs"], jobs)
+
     def test_profile_null_removes_key(self):
         self.setup_profile()
         self.ok("profile-set", data={"rules": None})

@@ -10,7 +10,7 @@ You need a Mac or Linux machine, and Claude Code (the Code tab of the Claude app
 
 1. Make a new folder anywhere and name it as you like, for example `Owl`.
 2. If someone gave you a notes file for Owl (`intake.md`), put it into that folder.
-3. Open a Claude Code or Codex session in that folder and send it this:
+3. Open a Claude Code or Codex session in that folder and send it this. Use a session that runs on this computer (the Code tab in the Claude app, opened on that folder), not a cloud one:
 
    > Install Owl in this folder and start it right away. Instructions: https://raw.githubusercontent.com/LeeAao/owl-alpha/main/INSTALL.md
 
@@ -56,3 +56,5 @@ If a person asks you to install Owl, follow [INSTALL.md](INSTALL.md): one comman
 ## Privacy
 
 Everything you tell Owl is stored in the `data` folder inside your Owl folder on your computer. Owl sends nothing anywhere. Your conversations go through Claude or Codex like any other chat with them.
+
+This repository is public, but it holds only Owl's code. The installer downloads a copy without any link back to GitHub, so nothing from your folder can end up here. Notes someone wrote about you for Owl (`intake.md`) are never put into this repository: they reach you directly and stay in your folder.

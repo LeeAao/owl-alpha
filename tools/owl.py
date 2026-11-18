@@ -35,7 +35,7 @@ DAY_ENDS_AT_HOUR = 5
 FIELD_TYPES = ("number", "scale", "yesno", "text")
 NOTE_KINDS = ("pattern", "advice", "question", "fact", "wish")
 PROFILE_KEYS = (
-    "name", "language", "tone", "set_up_by", "goals", "fields", "rules",
+    "name", "language", "tone", "set_up_by", "jobs", "goals", "fields", "rules",
     "rhythm", "wishes", "open_questions", "onboarding",
 )
 PLAN_KEYS = (

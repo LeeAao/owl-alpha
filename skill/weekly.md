@@ -121,6 +121,10 @@ And don't:
 - Let "low energy" become permanent without comment. Three such weeks in a row means something structural; raise it as a question, not a verdict.
 - Guilt-trip. "You should have done more" is never useful. "Here's what's realistic and the one thing that matters most" is.
 
+## Situations waiting to be added
+
+If `jobs` in the profile has situations with status `later`, end the review by offering one of them: the one closest to this week's main focus. If they agree, set it to `owl`, agree at most one new evening question for it, and save both. One per week. If none are waiting, skip this.
+
 ## Pace against their goals
 
 If a goal has something countable (a date, a budget of hours), say each week whether they're on pace, in one line, and what that means for the next date. Pace is information for planning. Being behind is a reason to shrink scope or move a date, never a reason to push harder in a week with slide signals.
