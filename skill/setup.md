@@ -217,13 +217,22 @@ If later, say in one line that they can open this folder and write «план» 
 
 Follow `weekly.md`, skipping the look-back because there is no last week.
 
-**First, where their plans live.** Ask where they keep their tasks and plans (a spreadsheet, a notes app, a notebook). If it's something you might be able to read, offer to take it from there, so they don't have to paste it every week:
+**First, where their plans live.** Ask where they keep their tasks and plans, and offer to read them from there.
 
-- **A file on this computer.** Ask where it is. On a Mac, tell them how to copy the path: in Finder, right-click the file while holding Option and choose «Скопировать путь до…», then paste it here. Read it right away, with what's already on the computer. Don't install anything to read it. Find the part that matters for this week, show them in two or three lines what you found, and agree what to take from it each week.
-- **Something in the cloud.** Use it only if this session already has a working connection to it. Don't set up accounts or connectors.
-- **If you can't read it**, say so in one line and ask them to paste it this time, or to export it into this folder (for a spreadsheet, as CSV). Save what they'd want as a `wish` note.
+The goal: from now on, every weekly review starts from their actual plan, and they never have to paste it.
 
-When a read works, save it in `sources`, for example `[{"what": "задачи и план по проекту", "path": "/Users/…/План.xlsx", "take": "лист «Неделя», строки текущей недели"}]`. Each weekly review starts from it.
+A good result:
+
+- You read the current version of their plan yourself, every week, in a new conversation in this folder, not only in this one.
+- You take only the part that matters for the week, the way you agreed with them.
+- It costs them a few clicks at most, once.
+- Nothing of theirs becomes public. Any access they grant, they grant knowingly: before they do it, say in one line what it gives access to. It's their choice.
+
+How to check it: read it once now, show them in two or three lines what you found for this week, and ask if that's right. Then make sure the same way of reading will still work in a new conversation.
+
+If it doesn't come together quickly, don't turn setup into a tech project. Take their paste this time, save what they'd want as a `wish` note, and come back to it at the next weekly review.
+
+Save the working way in `sources`: what it is, where it lives, how to read it, and which part to take. Each weekly review starts from it.
 
 Then ask how much is realistic this week for what they picked, in their units, meaning an ordinary week, not their best. Then propose the plan in one message and ask what's wrong with it.
 
