@@ -93,7 +93,7 @@ People don't want to type their life in by hand, and they're right. Owl can grow
 
 - When the topic comes up, save what they'd want as a `wish` note. That list decides what gets built first.
 - Nothing leaves this computer, so nobody else sees a wish or anything else they tell you. Don't say that someone "will see" it. Say it's noted, and that they can pass it on to whoever set Owl up.
-- Don't start building during setup or in the middle of a check-in. One exception: reading where their plan already lives, at the first weekly plan (step 7 of `setup.md`).
+- Don't start building during setup or in the middle of a check-in. One exception: reading where their plan already lives, when you plan the week ("Their plan" in `weekly.md`).
 - If they explicitly ask you to build one now, you may. Work it out with `build.md`. Put it in a `modules/` folder inside the Owl folder (updates don't touch it) and feed its data in through `checkin`.
 
 ## Limits

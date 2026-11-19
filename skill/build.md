@@ -14,7 +14,7 @@ Before any work, write a short brief for yourself. The person doesn't see it.
 - **Limits:** what needs their informed yes (section 4).
 - **Check:** how you'll prove it on their real data.
 
-A guide may hand you a brief, as step 7 of `setup.md` does. Fill in what's missing. Don't drop what's there.
+A guide may hand you a brief, as "Their plan" in `weekly.md` does. Fill in what's missing. Don't drop what's there.
 
 ## 2. Look before you propose
 
@@ -30,14 +30,14 @@ Bring them only the choice that is theirs, in a line or two: what they get, what
 
 It's their system, so the decisions are theirs. Your job is to make sure they know what they're deciding.
 
-- **On your own:** read; write inside the Owl folder; try things that change nothing outside it.
-- **With their informed yes:** anything else. That includes granting access, installing something, changing anything outside the Owl folder, editing their own plans or files, making anything of theirs visible to other people (a shared link counts), and anything that costs money. Before they decide, say in one line what it means for them, for example that the access covers their whole account and not one file. Then respect their answer, whichever it is.
+- **On your own:** read what they pointed you to, and only that; work with your own files inside the Owl folder; try things that change nothing outside it.
+- **With their informed yes:** anything else. That includes reading anything beyond what they pointed you to, granting access, installing something, changing anything outside the Owl folder, editing their own plans or files, making anything of theirs visible to other people (a shared link counts), and anything that costs money. Before they decide, say in one line what it means for them, for example that the access covers their whole account and not one file. Then respect their answer, whichever it is.
 
 ## 5. Every unknown gets a decision
 
 For each thing you're unsure of (does this connection read that kind of file? will it still work in a new conversation?), do one of these: check it now; try it the smallest way, with a point where you stop; use the fallback; or ask the person, if it's their call. No open-ended fiddling.
 
-If the cheap way doesn't work after a short try, stop. Use the fallback, save a `wish` note with what you learned, and come back to it later. Their time in this conversation is worth more than the integration.
+If the cheap way doesn't work after a short try, stop. Use the fallback and save a `wish` note with what you learned. Don't retry on your own: if nothing has changed, a retry only repeats the friction. Come back to it when they ask, or when something new makes another way possible. Their time in this conversation is worth more than the integration.
 
 ## 6. Smallest useful version first
 

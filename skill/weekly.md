@@ -8,7 +8,19 @@ Use the person's own units and names throughout: hours if they think in hours, t
 
 **Hours only for people who track hours.** Plan and compare in hours only when they agreed to an hours budget (`capacity_hours` in the plan) and log hours in the check-in. Otherwise the week is measured by what was agreed for it, in their unit: the main focus's `done_when` (two writing sessions, a chapter, a signed contract), checked against the totals of the matching field and their comments. Never ask for an hours estimate from someone who doesn't track hours, and never invent one.
 
-**Their sources.** If the profile has `sources`, read them before you start, the way it was agreed (`take` says which part). That's what's on their plate this week, and they don't have to paste it.
+## Their plan
+
+Before drafting anything, get what's actually on their plate this week.
+
+- **If the profile has `sources`,** read them the way it was agreed (it says which part to take). They don't have to paste anything. If a read fails, say so in one line and ask them to paste it this time.
+- **If there are no `sources` yet,** ask where they keep their tasks and plans, and offer to read them from there instead of them pasting. Work it out with `build.md`, now, before the draft. If they already declined, or it didn't work out before (see your `wish` notes), don't offer again unless they ask or something changed: just ask them to paste. Your brief:
+
+- **Goal:** every weekly review starts from their actual plan, with as little effort from them as possible.
+- **Good result:** at each weekly review you work from the current version of their plan, the part you agreed on, and it works in a new conversation, not only in this one. What it costs them, once and every week, is lower than what they do today to get the plan to you, copy-paste included.
+- **It's wrong if:** you work from an old copy, the wrong week or the wrong part; it works only in this conversation; it costs them more than what they do today; they agreed to something (access, visibility, money) without understanding what it means; setup turned into a tech project.
+- **Fallback:** they keep doing what they do today (usually a paste), and you save a `wish` note. Come back to it only when they ask or something changes.
+
+Save the working way in `sources`: what it is, where it lives, how to read it, and which part to take.
 
 ## Step 1. Look back (skip in the very first week)
 
@@ -48,7 +60,7 @@ Exposure needs dosing. It only teaches "this is survivable" when the person come
 
 ## Step 3. Draft the plan
 
-Start from what's on their plate this week. If it came from their `sources`, use it. If a read failed, say so in one line and ask them to paste it this time. Without `sources`, ask them to paste their tasks as they are, from wherever they keep them, and offer once to read them from there next time (see step 7 of `setup.md`).
+Start from what's on their plate this week (see "Their plan").
 
 - **Main focus.** One project or area, with a rough amount in their unit and why this one, this week. Choose by: which goal has the nearest date or is furthest behind, what carried over, and what their energy can take.
 - **Second.** Same shape.
