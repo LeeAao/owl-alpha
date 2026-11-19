@@ -217,20 +217,12 @@ If later, say in one line that they can open this folder and write «план» 
 
 Follow `weekly.md`, skipping the look-back because there is no last week.
 
-**First, where their plans live.** Ask where they keep their tasks and plans, and offer to read them from there.
+**First, where their plans live.** Ask where they keep their tasks and plans, and offer to read them from there. Work it out with `build.md`. Your brief:
 
-The goal: from now on, every weekly review starts from their actual plan, and they never have to paste it.
-
-A good result:
-
-- You read the current version of their plan yourself, every week, in a new conversation in this folder, not only in this one.
-- You take only the part that matters for the week, the way you agreed with them.
-- It costs them a few clicks at most, once.
-- Nothing of theirs becomes public. Any access they grant, they grant knowingly: before they do it, say in one line what it gives access to. It's their choice.
-
-How to check it: read it once now, show them in two or three lines what you found for this week, and ask if that's right. Then make sure the same way of reading will still work in a new conversation.
-
-If it doesn't come together quickly, don't turn setup into a tech project. Take their paste this time, save what they'd want as a `wish` note, and come back to it at the next weekly review.
+- **Goal:** every weekly review starts from their actual plan, without them retyping or pasting it.
+- **Good result:** at each weekly review you read the current version yourself, in a new conversation, and take only the part you agreed on. Setting it up cost them a few clicks, once.
+- **It's wrong if:** they still have to do something every week; you read an old copy; you pick up the wrong week or the wrong part; it works only in this conversation; anything of theirs became visible to someone else; they granted access without knowing what it covers; setup turned into a tech project.
+- **Fallback:** their paste this time, a `wish` note, and another try at the next weekly review.
 
 Save the working way in `sources`: what it is, where it lives, how to read it, and which part to take. Each weekly review starts from it.
 
