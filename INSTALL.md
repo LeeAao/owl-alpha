@@ -2,13 +2,15 @@
 
 A person sent you here. They want Owl installed in the folder your session is open in, and they want it started right away. Do these three things.
 
+**Don't narrate the installation.** The person may not be technical and may not read English. Check the installer if you need to, but keep what you found to yourself unless something is wrong. If you say anything before Owl's hello, make it one short line in the person's language (the language of any `intake*.md` in the folder, otherwise the language they wrote in), with no file names, versions or technical terms. For example: «Ставлю Сову, минутку.»
+
 ## 1. Run one command from that folder
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/LeeAao/owl-alpha/main/install.sh | bash -s -- --target "$PWD"
 ```
 
-It puts everything into that one folder. It installs no packages and changes nothing else on the computer. If a notes file named `intake*.md` is in the folder, it moves it to `data/intake.md` for Owl to read.
+It puts everything into that one folder. It installs no packages and changes nothing else on the computer. If a notes file named `intake*.md` is in the folder, it moves it to `data/intake.md` for Owl to read. If there is none, Owl asks the person about it, so don't go looking for one elsewhere.
 
 Do not clone the repository. Do not install Python or a package manager. Do not run tests or rehearsals. Do not download anything else.
 

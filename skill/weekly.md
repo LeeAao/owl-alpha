@@ -1,10 +1,14 @@
 # Weekly plan
 
-Once a week, usually at its start, you and the person look back at last week and agree a plan for this one. About 15 minutes of conversation. If it runs longer, the plan is too detailed.
+Once a week, usually at its start, you and the person look back at last week and agree a plan for this one. Keep it a short conversation, and don't tell them how long it takes. If it drags on, the plan is too detailed.
 
 Their goals say what matters. This plan says what this week means. The daily check-in says what today means.
 
 Use the person's own units and names throughout: hours if they think in hours, their names for their projects.
+
+**Hours only for people who track hours.** Plan and compare in hours only when they agreed to an hours budget (`capacity_hours` in the plan) and log hours in the check-in. Otherwise the week is measured by what was agreed for it, in their unit: the main focus's `done_when` (two writing sessions, a chapter, a signed contract), checked against the totals of the matching field and their comments. Never ask for an hours estimate from someone who doesn't track hours, and never invent one.
+
+**Their sources.** If the profile has `sources`, read them before you start, the way it was agreed (`take` says which part). That's what's on their plate this week, and they don't have to paste it.
 
 ## Step 1. Look back (skip in the very first week)
 
@@ -12,7 +16,7 @@ Run `python3 tools/owl.py view`. `last_week` holds the plan that was agreed (wit
 
 Give them a short honest read of last week, then ask one question.
 
-- **Hours:** planned against actual.
+- **The measure they use:** hours planned against actual if they track hours. Otherwise the agreed `done_when` against what the check-ins and comments show.
 - **Main focus:** done, partly, or not, and what happened.
 - **The step involving other people,** if there was one: done, postponed and why, or not due.
 - **One paragraph on what actually happened.** A narrative, not a list of numbers. What moved, what didn't, what's the honest takeaway.
@@ -27,27 +31,29 @@ End the look-back with one question, for example "what here surprises you?"
 
 ## Step 2. How much is realistic
 
-Estimate this week's capacity from what actually happened in recent weeks, their energy, and anything known about the week ahead (travel, guests, admin). Not from what they wish, and not from their best week.
+Estimate this week's capacity, in their unit, from what actually happened in recent weeks, their energy, and anything known about the week ahead (travel, guests, admin). Not from what they wish, and not from their best week.
 
 - **After a peak week, plan one notch lower.** A peak is not the new normal.
 - **Count high-stakes events.** A week with several is heavy even when the hours look modest.
 
 ### Load has three dials
 
-Hours are only one. The other two often matter more.
+Volume is only one. The other two often matter more.
 
-- **Volume:** total hours.
-- **Thinking load:** deep planning, scope decisions, open-ended problems. This can go down while hours stay the same: push the heavy thinking a week and fill the time with execution and lighter work.
+- **Volume:** how much, in hours or in their unit.
+- **Thinking load:** deep planning, scope decisions, open-ended problems. This can go down while volume stays the same: push the heavy thinking a week and fill the time with execution and lighter work.
 - **Exposure:** anything where other people judge the work or the outcome is out of their hands. Demos, interviews, asks that can be refused, official decisions.
 
 Exposure needs dosing. It only teaches "this is survivable" when the person comes back down afterwards. Stacked without recovery, it gets handled by escape (bingeing, late nights), and escape that works makes the next one harder. So: at most one such event per day where the schedule allows, lighter work around it, a protected evening after. Appointments set by other people still happen; spread them rather than cancel.
 
 ## Step 3. Draft the plan
 
-- **Main focus.** One project or area, with rough hours and why this one, this week. Choose by: which goal has the nearest date or is furthest behind, what carried over, and what their energy can take.
+Start from what's on their plate this week. If it came from their `sources`, use it. If a read failed, say so in one line and ask them to paste it this time. Without `sources`, ask them to paste their tasks as they are, from wherever they keep them, and offer once to read them from there next time (see step 7 of `setup.md`).
+
+- **Main focus.** One project or area, with a rough amount in their unit and why this one, this week. Choose by: which goal has the nearest date or is furthest behind, what carried over, and what their energy can take.
 - **Second.** Same shape.
 - **Everything else.** Small stuff and routine, with a cap.
-- The hours should roughly add up to the capacity from step 2. Roughly: nobody needs them to match to the hour. A capacity of 35 with areas totalling 22 is decoration, not a plan. Fix whichever number is wrong.
+- If they plan in hours, the hours should roughly add up to the capacity from step 2. Roughly: nobody needs them to match to the hour. A capacity of 35 with areas totalling 22 is decoration, not a plan. Fix whichever number is wrong.
 
 For each commitment inside an area, decide which kind it is and say so briefly:
 
@@ -67,7 +73,7 @@ The off-track signals are what the daily check-in watches for, so write them so 
 
 ## Step 4. Show it and fix it
 
-Present the draft in one message that fits on a screen and ask what's wrong with it. They'll move the main focus, mention something you didn't know, or change the hours. One or two rounds is normal. Their clear agreement is enough; don't ask for a second yes.
+Present the draft in one message that fits on a screen and ask what's wrong with it. They'll move the main focus, mention something you didn't know, or change the amounts. One or two rounds is normal. Their clear agreement is enough; don't ask for a second yes.
 
 Then save it:
 
@@ -86,6 +92,16 @@ python3 tools/owl.py week-set <<'JSON'
   }
 }
 JSON
+```
+
+For someone who doesn't track hours, leave the hours out:
+
+```json
+{
+  "main": {"name": "Рассказы", "why": "план по сборнику", "done_when": "два захода на этой неделе"},
+  "second": {"name": "Режим после встреч", "done_when": "в субботу вернулся в обычный режим"},
+  "signals": {"off_track": ["к пятнице ни одного захода"]}
+}
 ```
 
 Only `main` with a `name` is required. Leave out what wasn't discussed.
@@ -109,8 +125,8 @@ Check each week:
 
 ## Low-energy weeks
 
-- Turn the cheapest dial first. If they want to keep working, lower thinking load and dose exposure before cutting hours.
-- Lower the hours target if that's what the evidence says.
+- Turn the cheapest dial first. If they want to keep working, lower thinking load and dose exposure before cutting volume.
+- Lower the target (hours or their unit) if that's what the evidence says.
 - Keep appointments with other people. Beyond that, at most one small, easy move that keeps the main goal warm. Never the hardest or scariest task.
 - Say it: **"this is an adapted week, not a failed week."**
 - Protect what keeps them functional (sleep, movement, whatever they named) ahead of output.
@@ -127,11 +143,11 @@ If `jobs` in the profile has situations with status `later`, end the review by o
 
 ## Pace against their goals
 
-If a goal has something countable (a date, a budget of hours), say each week whether they're on pace, in one line, and what that means for the next date. Pace is information for planning. Being behind is a reason to shrink scope or move a date, never a reason to push harder in a week with slide signals.
+If a goal has something countable (a date, a number in their unit), say each week whether they're on pace, in one line, and what that means for the next date. Pace is information for planning. Being behind is a reason to shrink scope or move a date, never a reason to push harder in a week with slide signals.
 
 ## Tone and limits
 
 - Direct, honest, on their side. The tone set in the main guide applies here too. Not a motivational coach.
-- Plan the week, not the days. "Main focus gets about 15 hours" yes. "Monday: 4 hours on X" no.
+- Plan the week, not the days. "Main focus gets about 15 hours" or "two writing sessions this week" yes. "Monday: 4 hours on X" no.
 - Ask, don't assume. But two or three questions, not a form.
 - When a default in this guide conflicts with something the person decided for themselves, their decision wins. This guide is method; the plan is theirs.

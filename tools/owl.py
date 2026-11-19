@@ -13,6 +13,7 @@ object on stdin and print what was saved. Errors are one plain sentence on stder
   view          everything needed for a reply [--days 14]
   note-add      remember a pattern, advice, question, fact or wish
   note-close    close a note with what came of it
+  intake-import move an intake*.md lying in the Owl folder into data/intake.md
 
 Every command accepts --today YYYY-MM-DD (used for testing).
 """
@@ -36,7 +37,7 @@ FIELD_TYPES = ("number", "scale", "yesno", "text")
 NOTE_KINDS = ("pattern", "advice", "question", "fact", "wish")
 PROFILE_KEYS = (
     "name", "language", "tone", "set_up_by", "jobs", "goals", "fields", "rules",
-    "rhythm", "wishes", "open_questions", "onboarding",
+    "rhythm", "sources", "wishes", "open_questions", "onboarding",
 )
 PLAN_KEYS = (
     "capacity_hours", "main", "second", "rest_hours", "outward_step",
@@ -370,6 +371,30 @@ def cmd_view(args):
     }
 
 
+def waiting_intake():
+    """The newest intake*.md lying in the Owl folder itself, if data/intake.md isn't there yet."""
+    if (DATA / "intake.md").exists():
+        return None
+    found = sorted(DATA.parent.glob("intake*.md"), key=lambda path: path.stat().st_mtime, reverse=True)
+    return found[0] if found else None
+
+
+def cmd_intake_import(args):
+    target = DATA / "intake.md"
+    if target.exists():
+        return {"imported": False, "reason": "data/intake.md is already in place."}
+    source = waiting_intake()
+    if source is None:
+        raise OwlError("no intake*.md file in %s. Ask the person to put the file there." % DATA.parent)
+    DATA.mkdir(parents=True, exist_ok=True)
+    source.replace(target)
+    try:
+        os.chmod(target, 0o600)
+    except OSError:
+        pass
+    return {"imported": True, "from": source.name}
+
+
 def cmd_status(args):
     today = current_day(args)
     profile = load("profile.json", {})
@@ -394,6 +419,7 @@ def cmd_status(args):
         "setup_done": bool(onboarding.get("done")),
         "setup_next_step": onboarding.get("next"),
         "has_intake_notes": (DATA / "intake.md").exists(),
+        "intake_waiting": waiting_intake() is not None,
         "has_plan_this_week": has_plan,
         "checked_in_today": str(today) in checked,
         "last_checkin": checked[-1] if checked else None,
@@ -447,6 +473,7 @@ COMMANDS = {
     "view": cmd_view,
     "note-add": cmd_note_add,
     "note-close": cmd_note_close,
+    "intake-import": cmd_intake_import,
 }
 
 

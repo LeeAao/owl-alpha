@@ -20,7 +20,10 @@ FIELDS = [
 class OwlTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
-        self.env = dict(os.environ, OWL_DATA=self.temp.name)
+        # The Owl folder is the temp dir; data/ sits inside it, as in a real install.
+        self.home = Path(self.temp.name)
+        self.data = self.home / "data"
+        self.env = dict(os.environ, OWL_DATA=str(self.data))
 
     def tearDown(self):
         self.temp.cleanup()
@@ -71,6 +74,35 @@ class OwlTest(unittest.TestCase):
         self.assertIn("Allowed types", self.fails("profile-set", data={"fields": [{"key": "x", "type": "stars"}]}))
         self.assertIn("used twice", self.fails("profile-set", data={"fields": [{"key": "x"}, {"key": "x"}]}))
 
+    def test_profile_keeps_sources(self):
+        sources = [{"what": "задачи", "path": "/Users/x/plan.xlsx", "take": "лист Неделя"}]
+        self.ok("profile-set", data={"sources": sources})
+        self.assertEqual(self.ok("profile")["sources"], sources)
+
+    def test_intake_dropped_in_later_is_imported(self):
+        self.assertFalse(self.ok("status")["intake_waiting"])
+        (self.home / "intake.md").write_text("# Intake: Тест", encoding="utf-8")
+        status = self.ok("status")
+        self.assertTrue(status["intake_waiting"])
+        self.assertFalse(status["has_intake_notes"])
+        result = self.ok("intake-import")
+        self.assertTrue(result["imported"])
+        self.assertFalse((self.home / "intake.md").exists())
+        self.assertEqual((self.data / "intake.md").read_text(encoding="utf-8"), "# Intake: Тест")
+        status = self.ok("status")
+        self.assertTrue(status["has_intake_notes"])
+        self.assertFalse(status["intake_waiting"])
+
+    def test_intake_import_never_overwrites(self):
+        self.data.mkdir()
+        (self.data / "intake.md").write_text("old", encoding="utf-8")
+        (self.home / "intake - new.md").write_text("new", encoding="utf-8")
+        self.assertFalse(self.ok("intake-import")["imported"])
+        self.assertEqual((self.data / "intake.md").read_text(encoding="utf-8"), "old")
+
+    def test_intake_import_without_file_says_so(self):
+        self.assertIn("intake", self.fails("intake-import"))
+
     def test_profile_keeps_jobs(self):
         jobs = [{"when": "встал рано", "want": "держать ранний режим", "status": "owl"}]
         self.ok("profile-set", data={"jobs": jobs})
@@ -88,7 +120,7 @@ class OwlTest(unittest.TestCase):
         self.assertEqual(result["weekday"], "thursday")
         self.assertEqual(result["missing"], ["anxiety"])
         self.assertTrue(result["new_day"])
-        raw = (Path(self.temp.name) / "days.json").read_text(encoding="utf-8")
+        raw = (self.data / "days.json").read_text(encoding="utf-8")
         self.assertIn("весь день аналитика", raw)
 
     def test_checkin_correction_keeps_old_value(self):
@@ -98,7 +130,7 @@ class OwlTest(unittest.TestCase):
         self.assertEqual(result["corrected"], ["hours"])
         self.assertFalse(result["new_day"])
         self.assertEqual(result["values"], {"hours": 6, "anxiety": 4})
-        days = json.loads((Path(self.temp.name) / "days.json").read_text(encoding="utf-8"))
+        days = json.loads((self.data / "days.json").read_text(encoding="utf-8"))
         self.assertEqual(days["2026-11-12"]["history"][0]["was"], 8)
 
     def test_checkin_errors_are_plain(self):
@@ -163,7 +195,8 @@ class OwlTest(unittest.TestCase):
         self.assertIn("no note", self.fails("note-close", data={"id": 9}))
 
     def test_damaged_file_is_reported_not_overwritten(self):
-        path = Path(self.temp.name) / "profile.json"
+        self.data.mkdir()
+        path = self.data / "profile.json"
         path.write_text("{broken", encoding="utf-8")
         self.assertIn("damaged", self.fails("profile-set", data={"name": "x"}))
         self.assertEqual(path.read_text(encoding="utf-8"), "{broken")

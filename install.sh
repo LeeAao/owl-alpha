@@ -133,8 +133,9 @@ cp "$SRC/README.md" "$TARGET/OWL-README.md"       || fail "copy failed."
 cp "$SRC/VERSION" "$TARGET/$MARKER"               || fail "copy failed."
 
 # Intake notes: an explicit file wins, then an intake*.md lying in the Owl folder itself (it is
-# moved into data/), then the newest intake*.md in Downloads. Never overwrite one already in place.
-INTAKE_NOTE="none found. That's fine: Owl will just ask a few more questions."
+# moved into data/). Never overwrite one already in place. No guessing from other folders: that
+# could hand Owl someone else's notes. If none is found, Owl asks the person for the file.
+INTAKE_NOTE="none found. Owl will ask the person whether they were given one."
 if [ -f "$TARGET/data/intake.md" ]; then
   INTAKE_NOTE="already in place."
 else
@@ -143,11 +144,7 @@ else
     [ -f "$INTAKE" ] || fail "intake file not found: $INTAKE"
   else
     INTAKE="$(ls -t "$TARGET"/intake*.md 2>/dev/null | head -n 1)"
-    if [ -n "$INTAKE" ]; then
-      MOVE=1
-    else
-      INTAKE="$(ls -t "$HOME"/Downloads/intake*.md 2>/dev/null | head -n 1)"
-    fi
+    [ -n "$INTAKE" ] && MOVE=1
   fi
   if [ -n "$INTAKE" ] && [ -f "$INTAKE" ]; then
     if [ "$MOVE" -eq 1 ]; then
