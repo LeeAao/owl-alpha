@@ -219,9 +219,9 @@ Follow `weekly.md`, skipping the look-back because there is no last week.
 
 **First, where their plans live.** Ask where they keep their tasks and plans, and offer to read them from there. Work it out with `build.md`. Your brief:
 
-- **Goal:** every weekly review starts from their actual plan, without them retyping or pasting it.
-- **Good result:** at each weekly review you read the current version yourself, in a new conversation, and take only the part you agreed on. Setting it up cost them a few clicks, once.
-- **It's wrong if:** they still have to do something every week; you read an old copy; you pick up the wrong week or the wrong part; it works only in this conversation; anything of theirs became visible to someone else; they granted access without knowing what it covers; setup turned into a tech project.
+- **Goal:** every weekly review starts from their actual plan, with as little effort from them as possible.
+- **Good result:** at each weekly review you work from the current version of their plan, the part you agreed on, and it works in a new conversation, not only in this one. What it costs them, once and every week, is lower than retyping it.
+- **It's wrong if:** you work from an old copy, the wrong week or the wrong part; it works only in this conversation; it costs them more than pasting would; they agreed to something (access, visibility, money) without understanding what it means; setup turned into a tech project.
 - **Fallback:** their paste this time, a `wish` note, and another try at the next weekly review.
 
 Save the working way in `sources`: what it is, where it lives, how to read it, and which part to take. Each weekly review starts from it.
